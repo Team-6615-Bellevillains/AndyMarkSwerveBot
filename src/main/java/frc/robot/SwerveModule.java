@@ -2,9 +2,6 @@ package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.RelativeEncoder;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -43,7 +40,7 @@ public class SwerveModule {
         this.driveMotor = new WPI_TalonSRX(driverMotorID);
         this.steerMotor = new WPI_TalonSRX(steerMotorID);
 
-        // NEO plugged into Spark MAX
+        // Cimcoder in TalonSRX
         this.driveEncoder = this.driveMotor.getEncoder();
         // Lamprey2 plugged into TalonSRX
         this.steerMotor.configSelectedFeedbackSensor(FeedbackDevice.Analog, 0, 0);
