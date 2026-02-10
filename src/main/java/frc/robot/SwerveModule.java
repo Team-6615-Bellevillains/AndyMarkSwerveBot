@@ -18,7 +18,7 @@ public class SwerveModule {
     private final WPI_TalonSRX driveMotor;
     private final WPI_TalonSRX steerMotor;
 
-    private final Encoder driveEncoder;
+    //private final Encoder driveEncoder;
 
     private final Encoder steerEncoder;
 
@@ -41,13 +41,14 @@ public class SwerveModule {
         this.steerMotor = new WPI_TalonSRX(steerMotorID);
 
         // Cimcoder in TalonSRX
-        this.driveEncoder = this.driveMotor.getEncoder();
+        //this.driveEncoder = this.driveMotor.getEncoder();
+        this.driveMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
         // Lamprey2 plugged into TalonSRX
         this.steerMotor.configSelectedFeedbackSensor(FeedbackDevice.Analog, 0, 0);
         this.steerMotor.configFeedbackNotContinuous(true, 0);
 
-        this.driveEncoder.setPositionConversionFactor(SwerveModuleConstants.kDriveEncoderRot2Meter);
-        this.driveEncoder.setVelocityConversionFactor(SwerveModuleConstants.kDriveEncoderRot2Meter / 60);
+        // this.driveEncoder.setPositionConversionFactor(SwerveModuleConstants.kDriveEncoderRot2Meter);
+        //this.driveEncoder.setVelocityConversionFactor(SwerveModuleConstants.kDriveEncoderRot2Meter / 60);
 
         this.steerEncoder = new Encoder(steerEncoderAPort, steerEncoderBPort);
         this.steerEncoder.setDistancePerPulse(SwerveModuleConstants.kSteerEncoderRot2Rad);
@@ -55,6 +56,7 @@ public class SwerveModule {
         this.startingWheelRadians = getModuleRotationRadiansFromAbsoluteEncoder();
 
         this.driveMotor.setInverted(isDriveMotorReversed);
+        
 
         this.steerPIDController = new ProfiledPIDController(SwerveModuleConstants.kPTurning,
                 SwerveModuleConstants.kITurning,
@@ -62,7 +64,7 @@ public class SwerveModule {
                         SwerveModuleConstants.maxWheelVelocity, SwerveModuleConstants.maxWheelAcceleration));
         this.steerPIDController.enableContinuousInput(0, 2 * Math.PI);
 
-        this.driveEncoder.setPosition(0);
+        //this.driveEncoder.setPosition(0);
     }
 
     public SwerveModulePosition getPosition() {
@@ -72,11 +74,11 @@ public class SwerveModule {
     }
 
     public double getDistance() {
-        return driveEncoder.getPosition();
+        return this.driveMotor.getSelectedSensorPosition();
     }
 
     public double getVelocity() {
-        return driveEncoder.getVelocity();
+        return driveMotor.getSelectedSensorVelocity();
     }
 
     private String appendIdx(String input) {
