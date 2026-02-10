@@ -70,7 +70,7 @@ public class SwerveModule {
     public SwerveModulePosition getPosition() {
         return new SwerveModulePosition(
                 getDistance(),
-                getModuleRotation2dFromPGEncoder());
+                getModuleRotation2d());
     }
 
     public double getDistance() {
@@ -89,7 +89,7 @@ public class SwerveModule {
         return this.steerMotor.getSelectedSensorPosition();
     }
 
-    public double getModuleRotationRadiansFromAbsoluteEncoder() {
+    private double getModuleRotationRadiansFromAbsoluteEncoder() {
         /*
          * Magnets that are read on absolute encoders are read as 0 on a random M_point
          * when assembled. We want this to be at the zero point of the wheels
@@ -101,7 +101,8 @@ public class SwerveModule {
         return (offsetCounts / SwerveModuleConstants.maximumTotalCounts) * 2 * Math.PI;
     }
 
-    public Rotation2d getModuleRotation2dFromPGEncoder() {
+    public Rotation2d getModuleRotation2d() {
+        /* 
         double encoderRadians = Math.IEEEremainder(steerEncoder.getDistance() + startingWheelRadians, 2 * Math.PI);
 
         // We don't like negative values, so we convert to the equivalent positive
@@ -111,6 +112,8 @@ public class SwerveModule {
         }
 
         return Rotation2d.fromRadians(encoderRadians);
+        */
+        return Rotation2d.fromRadians(this.getModuleRotationRadiansFromAbsoluteEncoder());
     }
 
     public void setDesiredState(SwerveModuleState state, boolean ignoreLittle) {
@@ -119,9 +122,9 @@ public class SwerveModule {
             return;
         }
 
-        state = SwerveModuleState.optimize(state, getModuleRotation2dFromPGEncoder());
+        state = SwerveModuleState.optimize(state, getModuleRotation2d());
 
-        double steerPIDOut = steerPIDController.calculate(getModuleRotation2dFromPGEncoder().getRadians(),
+        double steerPIDOut = steerPIDController.calculate(getModuleRotation2d().getRadians(),
                 state.angle.getRadians());
 
         double feedforward = SwerveSubsystem.calculateSteerFeedforward(steerPIDController.getSetpoint().velocity);
