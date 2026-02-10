@@ -52,9 +52,9 @@ public class TunableSimpleMotorFeedforward {
         double tableKV = tuningTable.getValue(appendIdentifier("kv")).getDouble();
         double tableKA = tuningTable.getValue(appendIdentifier("ka")).getDouble();
 
-        if (simpleMotorFeedforward.ks != tableKS
-                || simpleMotorFeedforward.kv != tableKV
-                || simpleMotorFeedforward.ka != tableKA) {
+        if (simpleMotorFeedforward.getKs() != tableKS
+                || simpleMotorFeedforward.getKv() != tableKV
+                || simpleMotorFeedforward.getKa() != tableKA) {
             SmartDashboard.putNumber(String.format("Last update to %s", identifier), Timer.getFPGATimestamp());
 
             simpleMotorFeedforward = new SimpleMotorFeedforward(tableKS, tableKV, tableKA);
