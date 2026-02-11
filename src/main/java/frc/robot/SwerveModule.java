@@ -9,7 +9,6 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
-import edu.wpi.first.wpilibj.Encoder;
 import frc.robot.Constants.SwerveModuleConstants;
 import frc.robot.subsystems.SwerveSubsystem;
 
@@ -20,7 +19,7 @@ public class SwerveModule {
 
     //private final Encoder driveEncoder;
 
-    private final Encoder steerEncoder;
+    //private final Encoder steerEncoder;
 
     private final ProfiledPIDController steerPIDController;
 
@@ -41,18 +40,17 @@ public class SwerveModule {
         this.steerMotor = new WPI_TalonSRX(steerMotorID);
 
         // Cimcoder in TalonSRX
-        //this.driveEncoder = this.driveMotor.getEncoder();
         this.driveMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
         // Lamprey2 plugged into TalonSRX
         this.steerMotor.configSelectedFeedbackSensor(FeedbackDevice.Analog, 0, 0);
         this.steerMotor.configFeedbackNotContinuous(true, 0);
 
-        // this.driveEncoder.setPositionConversionFactor(SwerveModuleConstants.kDriveEncoderRot2Meter);
-        //this.driveEncoder.setVelocityConversionFactor(SwerveModuleConstants.kDriveEncoderRot2Meter / 60);
-
+        /* 
         this.steerEncoder = new Encoder(steerEncoderAPort, steerEncoderBPort);
         this.steerEncoder.setDistancePerPulse(SwerveModuleConstants.kSteerEncoderRot2Rad);
         this.steerEncoder.reset();
+        */
+        
         this.startingWheelRadians = getModuleRotationRadiansFromAbsoluteEncoder();
 
         this.driveMotor.setInverted(isDriveMotorReversed);
@@ -70,7 +68,7 @@ public class SwerveModule {
     public SwerveModulePosition getPosition() {
         return new SwerveModulePosition(
                 getDistance(),
-                getModuleRotation2d());
+                getModuleRotation());
     }
 
     public double getDistance() {
@@ -101,7 +99,7 @@ public class SwerveModule {
         return (offsetCounts / SwerveModuleConstants.maximumTotalCounts) * 2 * Math.PI;
     }
 
-    public Rotation2d getModuleRotation2d() {
+    public Rotation2d getModuleRotation() {
         /* 
         double encoderRadians = Math.IEEEremainder(steerEncoder.getDistance() + startingWheelRadians, 2 * Math.PI);
 
@@ -122,9 +120,9 @@ public class SwerveModule {
             return;
         }
 
-        state = SwerveModuleState.optimize(state, getModuleRotation2d());
+        state = SwerveModuleState.optimize(state, getModuleRotation());
 
-        double steerPIDOut = steerPIDController.calculate(getModuleRotation2d().getRadians(),
+        double steerPIDOut = steerPIDController.calculate(getModuleRotation().getRadians(),
                 state.angle.getRadians());
 
         double feedforward = SwerveSubsystem.calculateSteerFeedforward(steerPIDController.getSetpoint().velocity);
