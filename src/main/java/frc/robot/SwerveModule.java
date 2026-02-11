@@ -26,7 +26,7 @@ public class SwerveModule {
     private final double absoluteEncoderOffsetCounts;
 
     private final int idx;
-    private final double startingWheelRadians;
+    //private final double startingWheelRadians;
 
     public SwerveModule(int idx, int driverMotorID, int steerMotorID, int steerEncoderAPort, int steerEncoderBPort,
             boolean isDriveMotorReversed,
@@ -51,7 +51,7 @@ public class SwerveModule {
         this.steerEncoder.reset();
         */
         
-        this.startingWheelRadians = getModuleRotationRadiansFromAbsoluteEncoder();
+        //this.startingWheelRadians = getModuleRotationRadiansFromAbsoluteEncoder();
 
         this.driveMotor.setInverted(isDriveMotorReversed);
         
@@ -120,7 +120,7 @@ public class SwerveModule {
             return;
         }
 
-        state = SwerveModuleState.optimize(state, getModuleRotation());
+        state.optimize(getModuleRotation());
 
         double steerPIDOut = steerPIDController.calculate(getModuleRotation().getRadians(),
                 state.angle.getRadians());
