@@ -18,11 +18,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.SwerveModule;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.utils.TunableSimpleMotorFeedforward;
-import frc.robot.Constants.DriveConstants;
 
 public class SwerveSubsystem extends SubsystemBase {
 
@@ -30,8 +28,6 @@ public class SwerveSubsystem extends SubsystemBase {
             0,
             DriveConstants.kFrontLeftDriveMotorPort,
             DriveConstants.kFrontLeftSteerMotorPort,
-            DriveConstants.kFrontLeftEncoderAPort,
-            DriveConstants.kFrontLeftEncoderBPort,
             DriveConstants.kFrontLeftDriveMotorReversed,
             DriveConstants.kFrontLeftDriveAbsoluteEncoderOffsetCounts);
 
@@ -39,8 +35,6 @@ public class SwerveSubsystem extends SubsystemBase {
             1,
             DriveConstants.kFrontRightDriveMotorPort,
             DriveConstants.kFrontRightSteerMotorPort,
-            DriveConstants.kFrontRightEncoderAPort,
-            DriveConstants.kFrontRightEncoderBPort,
             DriveConstants.kFrontRightDriveMotorReversed,
             DriveConstants.kFrontRightDriveAbsoluteEncoderOffsetCounts);
 
@@ -48,8 +42,6 @@ public class SwerveSubsystem extends SubsystemBase {
             2,
             DriveConstants.kBackLeftDriveMotorPort,
             DriveConstants.kBackLeftSteerMotorPort,
-            DriveConstants.kBackLeftEncoderAPort,
-            DriveConstants.kBackLeftEncoderBPort,
             DriveConstants.kBackLeftDriveMotorReversed,
             DriveConstants.kBackLeftDriveAbsoluteEncoderOffsetCounts);
 
@@ -57,8 +49,6 @@ public class SwerveSubsystem extends SubsystemBase {
             3,
             DriveConstants.kBackRightDriveMotorPort,
             DriveConstants.kBackRightSteerMotorPort,
-            DriveConstants.kBackRightEncoderAPort,
-            DriveConstants.kBackRightEncoderBPort,
             DriveConstants.kBackRightDriveMotorReversed,
             DriveConstants.kBackRightDriveAbsoluteEncoderOffsetCounts);
 
@@ -74,7 +64,7 @@ public class SwerveSubsystem extends SubsystemBase {
                     DriveConstants.kMaxVelocityThetaCorrection, DriveConstants.kMaxAccelerationThetaCorrection));
 
     private static final TunableSimpleMotorFeedforward driveFeedforward = new TunableSimpleMotorFeedforward("drive",
-            0.440000, 2.350000);
+            0.440000, 3.350000);
 
     private static final TunableSimpleMotorFeedforward steerFeedforward = new TunableSimpleMotorFeedforward("steer",
             1.112500, 1.300000);

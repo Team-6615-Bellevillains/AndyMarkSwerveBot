@@ -28,7 +28,7 @@ public class SwerveModule {
     private final int idx;
     //private final double startingWheelRadians;
 
-    public SwerveModule(int idx, int driverMotorID, int steerMotorID, int steerEncoderAPort, int steerEncoderBPort,
+    public SwerveModule(int idx, int driverMotorID, int steerMotorID,
             boolean isDriveMotorReversed,
             double absoluteEncoderOffsetCounts) {
 

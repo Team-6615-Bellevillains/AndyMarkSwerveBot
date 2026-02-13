@@ -43,16 +43,17 @@ public final class Constants {
                 new Translation2d(-kWheelBase / 2, kTrackWidth / 2),
                 new Translation2d(-kWheelBase / 2, -kTrackWidth / 2));
 
-        public static final int kFrontLeftDriveMotorPort = 13;
-        public static final int kFrontRightDriveMotorPort = 9;
-        public static final int kBackLeftDriveMotorPort = 12;
-        public static final int kBackRightDriveMotorPort = 10;
+        public static final int kFrontLeftDriveMotorPort = 5;
+        public static final int kFrontRightDriveMotorPort = 6;
+        public static final int kBackLeftDriveMotorPort = 8;
+        public static final int kBackRightDriveMotorPort = 7;
 
-        public static final int kFrontLeftSteerMotorPort = 4;
-        public static final int kFrontRightSteerMotorPort = 6;
-        public static final int kBackLeftSteerMotorPort = 1;
-        public static final int kBackRightSteerMotorPort = 5;
+        public static final int kFrontLeftSteerMotorPort = 1;
+        public static final int kFrontRightSteerMotorPort = 2;
+        public static final int kBackLeftSteerMotorPort = 4;
+        public static final int kBackRightSteerMotorPort = 3;
 
+        /* 
         public static final int kFrontLeftEncoderAPort = 4;
         public static final int kFrontLeftEncoderBPort = 5;
         public static final int kFrontRightEncoderAPort = 6;
@@ -61,6 +62,7 @@ public final class Constants {
         public static final int kBackLeftEncoderBPort = 3;
         public static final int kBackRightEncoderAPort = 8;
         public static final int kBackRightEncoderBPort = 9;
+        */
 
         public static final boolean kFrontLeftDriveMotorReversed = true;
         public static final boolean kFrontRightDriveMotorReversed = true;
