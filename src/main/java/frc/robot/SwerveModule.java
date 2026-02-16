@@ -3,12 +3,14 @@ package frc.robot;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import edu.wpi.first.epilogue.Logged;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.SwerveModuleConstants;
 import frc.robot.subsystems.SwerveSubsystem;
 
@@ -126,9 +128,12 @@ public class SwerveModule {
                 state.angle.getRadians());
 
         double feedforward = SwerveSubsystem.calculateSteerFeedforward(steerPIDController.getSetpoint().velocity);
-
-        driveMotor.setVoltage(SwerveSubsystem.calculateDriveFeedforward(state.speedMetersPerSecond));
+        double driveFF = SwerveSubsystem.calculateDriveFeedforward(state.speedMetersPerSecond);
+        driveMotor.setVoltage(driveFF);
         steerMotor.setVoltage(steerPIDOut + feedforward);
+        SmartDashboard.putNumber(appendIdx("drive voltage"), driveFF);
+        SmartDashboard.putNumber(appendIdx("steer voltage"), steerPIDOut + feedforward);
+        SmartDashboard.putNumber(appendIdx("measured position"), getModuleRotation().getRadians());
     }
 
     public void stop() {
